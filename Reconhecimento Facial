@@ -1,0 +1,39 @@
+# Importando Bibliotecas
+import cv2 #OpenCv
+from google.colab.patches import cv2_imshow
+
+#Conectar com o Driver
+from google.colab import drive
+drive.mount('/content/drive')
+
+#Importando a imagem
+imagem = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/people1.jpg')
+imagem.shape
+
+#Carregar Imagem
+cv2_imshow(imagem)
+
+imagem = cv2.resize(imagem, (800,600))
+
+
+imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+cv2_imshow(imagem_cinza)
+
+#Criando um detector, Pegando um modelo ja treinado
+detector_facial = cv2.CascadeClassifier('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Cascades/haarcascade_frontalface_default.xml')
+
+
+#Passando a imagem em cinza, por ser mais rapida
+deteccoes = detector_facial.detectMultiScale(imagem_cinza, scaleFactor=1.2) #Scale=Aumenta a escala da imagem#Quantidade de faces encontradas
+deteccoes
+
+len(deteccoes)
+
+#Aprimoramento do modelo(eliminar falsos positivos) Imagem 1
+imagem = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/people1.jpg')
+imagem = cv2.resize(imagem, (800,600))
+imagem_cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+deteccoes = detector_facial.detectMultiScale(imagem_cinza, scaleFactor=1.09, ) #Scale aumenta a escala da imagem
+for x, y, w, h in deteccoes:
+  cv2.rectangle(imagem, (x, y), (x + w, y + h), (0,255,255), 5)
+cv2_imshow(imagem)
