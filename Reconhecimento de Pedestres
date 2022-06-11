@@ -1,0 +1,16 @@
+#CORPO INTEIRO
+corpo = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/people3.jpg')
+cv2_imshow(corpo)
+
+corpo_cinza = cv2.cvtColor(corpo, cv2.COLOR_BGR2GRAY)
+cv2_imshow(corpo_cinza)
+
+#ESSE DETECTOR SERVE PARA CARROS AUTONOMOS ONDE VOCÊ PRECISA DETECTAR PEDESTRES
+detector_corpo = cv2.CascadeClassifier('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Cascades/fullbody.xml')
+corpo = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/people3.jpg')
+corpo_cinza = cv2.cvtColor(corpo, cv2.COLOR_BGR2GRAY)
+deteccoes_corpo = detector_corpo.detectMultiScale(corpo_cinza, scaleFactor=1.05, minNeighbors=5, minSize=(50,50))
+
+for (x, y, w, h) in deteccoes_corpo:
+  cv2.rectangle(corpo, (x,y), (x+y, y+h), (0,255,0), 2)
+cv2_imshow(corpo)
