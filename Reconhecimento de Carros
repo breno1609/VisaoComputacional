@@ -1,0 +1,19 @@
+imagem_carro = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/car.jpg')
+cv2_imshow(imagem_carro)
+imagem_carro.shape
+
+imagem_carro_cinza = cv2.cvtColor(imagem_carro, cv2.COLOR_BGR2GRAY)
+cv2_imshow(imagem_carro_cinza)
+
+detc_radar = cv2.CascadeClassifier('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Cascades/cars.xml')
+
+#CARRO
+deteccoes_radar = detc_radar.detectMultiScale(imagem_carro_cinza, scaleFactor=1.54, minNeighbors=5, maxSize=(10,10))
+imagem_carro = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/car.jpg')
+imagem_carro_cinza = cv2.cvtColor(imagem_carro, cv2.COLOR_BGR2GRAY)
+deteccoes_radar = detc_radar.detectMultiScale(imagem_carro_cinza, scaleFactor=1.03, minNeighbors=5)
+
+for (x, y, w, h) in deteccoes_radar:
+  cv2.rectangle(imagem_carro, (x, y), (x + w, y + h), (0,255,255), 5)
+cv2_imshow(imagem_carro)
+
