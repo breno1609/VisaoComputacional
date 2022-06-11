@@ -1,0 +1,9 @@
+#RELOGIO
+detector_relogio = cv2.CascadeClassifier('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Cascades/clocks.xml')
+relogio = cv2.imread('/content/drive/MyDrive/Visão Computacional Guia Completo-20220611T012625Z-001/Visão Computacional Guia Completo/Images/clock.jpg')
+relogio_cinza = cv2.cvtColor(relogio, cv2.COLOR_BGR2GRAY)
+deteccoes_relogio = detector_relogio.detectMultiScale(relogio_cinza, scaleFactor=1.03, minNeighbors=1)
+
+for(x, y, w, h) in deteccoes_relogio:
+  cv2.rectangle(relogio, (x,y), (x+w, y+h), (0,255,0), 2)
+cv2_imshow(relogio)
